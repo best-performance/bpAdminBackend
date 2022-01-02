@@ -11,7 +11,7 @@ export class CdkBackendStack extends cdk.Stack {
     // create a lambda and ApiGatewa
     const testLambda = new lambda.Function(this, "TestLambda", {
       runtime: lambda.Runtime.NODEJS_14_X,
-      handler: "index.handler",
+      handler: "handler.handler",
       code: lambda.Code.fromAsset(path.join(__dirname, "lambda")),
     });
 
