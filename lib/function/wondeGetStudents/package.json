@@ -1,0 +1,12 @@
+{
+  "name": "lambda",
+  "version": "1.0.0",
+  "description": "lambda for /wondeGetStudent API route",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "latest",
+    "lodash": "latest",
+    "dayjs": "latest"
+  }
+}
