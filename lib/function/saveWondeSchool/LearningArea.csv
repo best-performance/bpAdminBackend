@@ -1,0 +1,5 @@
+"id","__typename","areaName","colour","createdAt","updatedAt"
+"5517a431-48ab-4918-a725-f536bd013531","LearningArea","English","#ee4491","2020-09-27T07:48:48.275Z","2021-01-22T01:48:11.100Z"
+"ad9b41b2-62e1-495f-bb70-08192bf3cb14","LearningArea","Mathematics","#03bfd7","2020-09-27T07:49:05.760Z","2021-01-22T01:48:02.125Z"
+"453752e1-4206-4e51-9642-2c524bdf7fd3","LearningArea","Technology","#674ea7","2021-01-22T06:28:08.642Z","2021-01-22T06:28:08.642Z"
+"0bdb0e64-9255-4631-b990-f1a0fdd63fc1","LearningArea","Science","#5fbf7f","2020-09-27T07:49:21.050Z","2020-09-27T07:49:21.050Z"

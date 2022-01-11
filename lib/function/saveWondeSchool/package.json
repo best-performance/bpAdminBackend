@@ -6,6 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "latest",
-    "uuid": "latest"
+    "uuid": "latest",
+    "csv-parser": "latest"
   }
 }
