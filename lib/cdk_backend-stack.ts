@@ -208,13 +208,12 @@ export class CdkBackendStack extends cdk.Stack {
     learningAreaTable.grantFullAccess(saveWondeSchool);
 
     // Create an amplify app and link it to the frontEnd repo
-    // the gitHub access token is "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"
+    // the gitHub access token is "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"
     const amplifyApp = new amplify.App(this, "amplify-cdk", {
       sourceCodeProvider: new amplify.GitHubSourceCodeProvider({
-        owner: "best-performance",
-        repository: "bpAdminAmplify",
-        //oauthToken: cdk.SecretValue.secretsManager('github-token')
-        oauthToken: cdk.SecretValue.plainText("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"),
+        owner: "bcperth01",
+        repository: "bpAdminFrontend",
+        oauthToken: cdk.SecretValue.plainText("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"),
       }),
 
       // These appear in the Amplify Console for this application
