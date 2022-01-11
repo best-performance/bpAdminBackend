@@ -211,10 +211,10 @@ export class CdkBackendStack extends cdk.Stack {
     // the gitHub access token is "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"
     const amplifyApp = new amplify.App(this, "amplify-cdk", {
       sourceCodeProvider: new amplify.GitHubSourceCodeProvider({
-        owner: "bcperth01",
+        owner: "best-performance",
         repository: "bpAdminAmplify",
         //oauthToken: cdk.SecretValue.secretsManager('github-token')
-        oauthToken: cdk.SecretValue.plainText("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"),
+        oauthToken: cdk.SecretValue.plainText("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"),
       }),
 
       // These appear in the Amplify Console for this application
