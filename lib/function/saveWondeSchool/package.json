@@ -7,6 +7,6 @@
   "dependencies": {
     "aws-sdk": "latest",
     "uuid": "latest",
-    "csv-parser": "latest"
+    "csv-parse": "latest"
   }
 }

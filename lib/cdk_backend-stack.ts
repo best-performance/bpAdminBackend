@@ -57,6 +57,7 @@ export class CdkBackendStack extends cdk.Stack {
     const saveWondeSchool = new lambda.Function(this, "SaveWondeSchool", {
       runtime: lambda.Runtime.NODEJS_14_X,
       handler: "index.handler",
+      timeout: cdk.Duration.seconds(30), // default timeout is 3 secs - too short?
       code: lambda.Code.fromAsset(path.join(__dirname, "function", "saveWondeSchool")),
     });
     apiGateway.root
@@ -182,6 +183,7 @@ export class CdkBackendStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
     countryTable.grantFullAccess(saveWondeSchool);
+
     // make a State table
     const stateTable = new dynamodb.Table(this, "state", {
       partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
@@ -190,6 +192,7 @@ export class CdkBackendStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
     stateTable.grantFullAccess(saveWondeSchool);
+
     // make a YearLevel table
     const yearLevelTable = new dynamodb.Table(this, "yearLevel", {
       partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
@@ -198,6 +201,7 @@ export class CdkBackendStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
     yearLevelTable.grantFullAccess(saveWondeSchool);
+
     // make a LearningArea table
     const learningAreaTable = new dynamodb.Table(this, "learningAaea", {
       partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
@@ -208,12 +212,12 @@ export class CdkBackendStack extends cdk.Stack {
     learningAreaTable.grantFullAccess(saveWondeSchool);
 
     // Create an amplify app and link it to the frontEnd repo
-    // the gitHub access token is "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"
+    // the gitHub access token is "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"
     const amplifyApp = new amplify.App(this, "amplify-cdk", {
       sourceCodeProvider: new amplify.GitHubSourceCodeProvider({
         owner: "bcperth01",
         repository: "bpAdminFrontend",
-        oauthToken: cdk.SecretValue.plainText("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"),
+        oauthToken: cdk.SecretValue.plainText("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"),
       }),
 
       // These appear in the Amplify Console for this application
