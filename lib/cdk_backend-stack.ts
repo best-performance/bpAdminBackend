@@ -1,10 +1,10 @@
-import * as amplify from "@aws-cdk/aws-amplify-alpha"; // not in V2 aws-cdk-lib yet
 import * as cdk from "aws-cdk-lib";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as apigw from "aws-cdk-lib/aws-apigateway";
 import * as path from "path"; // see here https://www.w3schools.com/nodejs/ref_path.asp
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as cognito from "aws-cdk-lib/aws-cognito";
+import * as amplify from "@aws-cdk/aws-amplify-alpha"; // not in V2 aws-cdk-lib yet
 import { UserPoolClient } from "aws-cdk-lib/aws-cognito";
 
 export class CdkBackendStack extends cdk.Stack {
@@ -47,7 +47,9 @@ export class CdkBackendStack extends cdk.Stack {
     const wondeallschools = new lambda.Function(this, "WondeGetAllSchools", {
       runtime: lambda.Runtime.NODEJS_14_X,
       handler: "index.handler",
-      code: lambda.Code.fromAsset(path.join(__dirname, "function", "wondeGetAllSchools")),
+      code: lambda.Code.fromAsset(
+        path.join(__dirname, "function", "wondeGetAllSchools")
+      ),
     });
     apiGateway.root // add route to API Gateway
       .resourceForPath("wondeallschools")
@@ -58,7 +60,9 @@ export class CdkBackendStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_14_X,
       handler: "index.handler",
       timeout: cdk.Duration.seconds(30), // default timeout is 3 secs - too short?
-      code: lambda.Code.fromAsset(path.join(__dirname, "function", "saveWondeSchool")),
+      code: lambda.Code.fromAsset(
+        path.join(__dirname, "function", "saveWondeSchool")
+      ),
     });
     apiGateway.root
       .resourceForPath("saveWondeSchool")
@@ -69,7 +73,9 @@ export class CdkBackendStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_14_X,
       handler: "index.handler",
       timeout: cdk.Duration.seconds(30), // default timeout is 3 secs - too short
-      code: lambda.Code.fromAsset(path.join(__dirname, "function", "wondeGetStudents")),
+      code: lambda.Code.fromAsset(
+        path.join(__dirname, "function", "wondeGetStudents")
+      ),
     });
     apiGateway.root
       .resourceForPath("wondestudents")
@@ -80,7 +86,9 @@ export class CdkBackendStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_14_X,
       handler: "index.handler",
       timeout: cdk.Duration.seconds(30), // default timeout is 3 secs - too short
-      code: lambda.Code.fromAsset(path.join(__dirname, "function", "wondeGetTeachers")),
+      code: lambda.Code.fromAsset(
+        path.join(__dirname, "function", "wondeGetTeachers")
+      ),
     });
     apiGateway.root
       .resourceForPath("wondeteachers")
@@ -148,21 +156,29 @@ export class CdkBackendStack extends cdk.Stack {
     classroomTeacherTable.grantFullAccess(saveWondeSchool); // grant permissions to lambda
 
     // Make ClassroomYearLevel table
-    const classroomYearLevelTable = new dynamodb.Table(this, "classroomYearLevel", {
-      partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
-      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-      tableName: "ClassroomYearLevel",
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
-    });
+    const classroomYearLevelTable = new dynamodb.Table(
+      this,
+      "classroomYearLevel",
+      {
+        partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+        billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+        tableName: "ClassroomYearLevel",
+        removalPolicy: cdk.RemovalPolicy.DESTROY,
+      }
+    );
     classroomYearLevelTable.grantFullAccess(saveWondeSchool); // grant permissions to lambda
 
     // Make ClassroomLearningArea table
-    const classroomLearningAreaTable = new dynamodb.Table(this, "classroomLearningArea", {
-      partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
-      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-      tableName: "ClassroomLearningArea",
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
-    });
+    const classroomLearningAreaTable = new dynamodb.Table(
+      this,
+      "classroomLearningArea",
+      {
+        partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+        billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+        tableName: "ClassroomLearningArea",
+        removalPolicy: cdk.RemovalPolicy.DESTROY,
+      }
+    );
     classroomLearningAreaTable.grantFullAccess(saveWondeSchool); // grant permissions to lambda
 
     // Make SchoolStudent table
@@ -220,7 +236,9 @@ export class CdkBackendStack extends cdk.Stack {
         //oauthToken: cdk.SecretValue.plainText("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"),
         owner: "best-performance",
         repository: "bpAdminAmplify",
-        oauthToken: cdk.SecretValue.plainText("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"),
+        oauthToken: cdk.SecretValue.plainText(
+          "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"
+        ),
       }),
 
       // These appear in the Amplify Console for this application
