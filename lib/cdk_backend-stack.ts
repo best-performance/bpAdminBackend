@@ -12,16 +12,35 @@ export class CdkBackendStack extends cdk.Stack {
     super(scope, id, props);
 
     // create a Cognnito User Pool
-    const userPool = new cognito.UserPool(this, "WondeUserPool", {
+    const userPool = new cognito.UserPool(this, "BPAdminUserPool", {
       selfSignUpEnabled: false, // dont allow users to sign up
-      autoVerify: { email: true },
-      signInAliases: { email: true }, // set email as an alias
+      autoVerify: { email: false },
+      signInAliases: { username: true }, // allow username
+      standardAttributes: {
+        fullname: {
+          required: true,
+          mutable: false,
+        },
+        nickname: {
+          required: false,
+          mutable: true,
+        },
+      },
+      customAttributes: {
+        schoolAdmin: new cognito.BooleanAttribute({
+          mutable: false,
+        }),
+      },
     });
 
-    const userPoolClient = new UserPoolClient(this, "WondeUserPoolClient", {
+    const userPoolClient = new UserPoolClient(this, "BPAdminUserPoolClient", {
       userPool,
       generateSecret: false, // not needed for web apps
     });
+
+    // Note: See Amplify construct below where we place the userPoolId and
+    // userPoolClientId in amplify's environment variables
+    // Note: We are not yet creating a cognito IdentityPool
 
     // create a test lambda and ApiGateway (TODO :remove this)
     const testLambda = new lambda.Function(this, "TestLambda", {
@@ -237,7 +256,7 @@ export class CdkBackendStack extends cdk.Stack {
         owner: "best-performance",
         repository: "bpAdminAmplify",
         oauthToken: cdk.SecretValue.plainText(
-          "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"
+          "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"
         ),
       }),
 
