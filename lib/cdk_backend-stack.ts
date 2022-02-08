@@ -5,11 +5,33 @@ import * as path from "path"; // see here https://www.w3schools.com/nodejs/ref_p
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as amplify from "@aws-cdk/aws-amplify-alpha"; // not in V2 aws-cdk-lib yet
+import * as s3 from "aws-cdk-lib/aws-s3";
+import * as iam from 'aws-cdk-lib/aws-iam';
 import { UserPoolClient } from "aws-cdk-lib/aws-cognito";
 
 export class CdkBackendStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
+    
+    // Adding a bucket for the schools upload
+    const schoolsUploads = new s3.Bucket(this, 's3-bucket', {
+      bucketName: 'ukbpedsys2',
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      publicReadAccess: false,
+      encryption: s3.BucketEncryption.S3_MANAGED,
+      cors: [
+        {
+          allowedMethods: [
+            s3.HttpMethods.GET,
+            s3.HttpMethods.POST,
+            s3.HttpMethods.PUT,
+          ],
+          allowedOrigins: ['http://localhost:3000'],
+          allowedHeaders: ['*'],
+        },
+      ],
+    });
+    schoolsUploads.grantRead(new iam.AccountRootPrincipal());
 
     // create a Cognnito User Pool
     const userPool = new cognito.UserPool(this, "BPAdminUserPool", {
