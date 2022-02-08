@@ -13,21 +13,21 @@ export class CdkBackendStack extends cdk.Stack {
 
     // create a Cognnito User Pool
     const userPool = new cognito.UserPool(this, "BPAdminUserPool", {
-      selfSignUpEnabled: false, // dont allow users to sign up
+      selfSignUpEnabled: true, // enables Auth.signup
       autoVerify: { email: false },
       signInAliases: { username: true }, // allow username
       standardAttributes: {
-        fullname: {
+        email: {
           required: true,
           mutable: false,
         },
         nickname: {
           required: false,
-          mutable: true,
+          mutable: false,
         },
       },
       customAttributes: {
-        schoolAdmin: new cognito.BooleanAttribute({
+        schoolName: new cognito.StringAttribute({
           mutable: false,
         }),
       },
@@ -256,7 +256,7 @@ export class CdkBackendStack extends cdk.Stack {
         owner: "best-performance",
         repository: "bpAdminAmplify",
         oauthToken: cdk.SecretValue.plainText(
-          "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"
+          "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"
         ),
       }),
 
